@@ -14,6 +14,71 @@
                         \end{itemize}
                   \item assume $n \gg k$ (e.g. $k = \bigO{n^{\varepsilon}}$)
               \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \onslide<1-4>{
+    \begin{tikzpicture}[every node/.style={draw}]
+        \onslide<1-2>{
+        \node[circle,label=above:{Input Graph}] (a) {$a$};
+        \node[circle,below left=of a]  (b)  {$b$};
+        \node[circle,below=of a] (e) {$e$};
+        \node[circle,below right=of a] (f) {$f$};
+        \node[circle,below=of b] (c) {$c$};
+        \node[circle,below right=of c] (d) {$d$};
+        \node[circle,right=of d] (h) {$h$};
+        \node[circle,above=of h] (g) {$g$};
+
+        \draw (a) -- (b) -- (c) -- (d) -- (h) -- (g) -- (f) -- (a);
+        \draw (a) -- (e) -- (h);
+        }
+
+        \node[rectangle, minimum width=2.5cm, minimum height=2cm,label=above:{$M_1$},purple,very thick, above right=of g] (m1) {};
+        \node[rectangle, minimum width=2.5cm, minimum height=2cm,label=above:{$M_2$},purple,very thick,right=of m1] (m2) {};
+        \node[rectangle, minimum width=2.5cm, minimum height=2cm,label=below:{$M_3$},purple,very thick,below=of m1] (m3) {};
+        \node[rectangle, minimum width=2.5cm, minimum height=2cm,label=below:{$M_4$},purple,very thick,right=of m3] (m4) {};
+
+        \draw[<->, very thick, purple] (m1) -- (m2);
+        \draw[<->, very thick, purple] (m1) -- (m3);
+        \draw[<->, very thick, purple] (m1.south east) -- (m4.north west);
+        \draw[<->, very thick, purple] (m2) -- (m4);
+        \draw[<->, very thick, purple] (m2.south west) -- (m3.north east);
+        \draw[<->, very thick, purple] (m3) -- (m4);
+
+        \onslide<2>{
+            \draw[->, dashed] (a) to[bend left] (m1);
+            \draw[->, dashed] (e) to[bend left] (m1);
+            \draw[->, dashed] (c) to[bend right] (m2);
+            \draw[->, dashed] (h) to[bend left] (m2);
+            \draw[->, dashed] (b) to[bend right] (m3);
+            \draw[->, dashed] (g) to[bend right] (m3);
+            \draw[->, dashed] (d) to[bend right] (m4);
+            \draw[->, dashed] (f) to[bend right] (m4);
+        }
+
+        \onslide<3,4>{
+        \node[circle] (a1) at ([xshift=-0.5cm,yshift=0.5cm]m1.center) {$a$};
+        \node[circle] (e1) at ([xshift=0.5cm,yshift=-0.5cm]m1.center) {$e$};
+        \node[circle] (c1) at ([xshift=-0.5cm,yshift=0.5cm]m2.center) {$c$};
+        \node[circle] (h1) at ([xshift=0.5cm,yshift=-0.5cm]m2.center) {$h$};
+        \node[circle] (b1) at ([xshift=-0.5cm,yshift=0.5cm]m3.center) {$b$};
+        \node[circle] (g1) at ([xshift=0.5cm,yshift=-0.5cm]m3.center) {$g$};
+        \node[circle] (d1) at ([xshift=-0.5cm,yshift=0.5cm]m4.center) {$d$};
+        \node[circle] (f1) at ([xshift=0.5cm,yshift=-0.5cm]m4.center) {$f$};
+        }
+
+        \onslide<4>{
+        \draw[dashed, red] (a1) -- (b1) -- (c1) -- (d1) -- (h1) -- (g1) -- (f1) -- (a1);
+        \draw[dashed, red] (a1) -- (e1) -- (h1);
+        }
+    \end{tikzpicture}
+    }
+\end{frame}
+
+\begin{frame}
+    \begin{itemize}
         \item typically, \alert{only consider communication cost}
               \begin{itemize}
                   \item message complexity --- number of communication rounds
@@ -25,6 +90,7 @@
               \end{itemize}
     \end{itemize}
 \end{frame}
+
 
 \begin{frame}{Our Results}
     \begin{itemize}

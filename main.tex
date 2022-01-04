@@ -18,6 +18,29 @@
 \renewcommand{\sfrac}[2]{#1 / #2}
 \UseCollection{xfrac}{plainmath}
 \usepackage{algpseudocodex}
+\usepackage{tikz, pgfplots}
+\pgfplotsset{compat=newest}
+\usetikzlibrary{shapes, shapes.misc, decorations, fit, backgrounds, positioning, patterns, shadows, calc, arrows, arrows.meta, trees}
+\usetikzlibrary{external}
+\tikzexternalize[prefix=tikzimages/]
+\tikzset{>={Latex[width=2mm,length=2mm]}}
+\newcommand\DoubleLine[7][4pt]{%
+    \path(#2)--(#3)coordinate[at start](h1)coordinate[at end](h2);
+    \draw[#4]($(h1)!#1!90:(h2)$)-- node [auto=left] {#5} ($(h2)!#1!-90:(h1)$); 
+    \draw[#6]($(h1)!#1!-90:(h2)$)-- node [auto=right] {#7} ($(h2)!#1!90:(h1)$);
+}
+\tikzset{arrowhead/.style=
+         {sloped,isosceles triangle,anchor=apex,fill=black,inner sep=2pt}}
+\tikzset{
+  point/.style={
+    draw,
+    circle,
+    inner sep=0pt,
+    outer sep=0pt,
+    minimum size=0.1cm,
+    fill
+  }
+}
 
 \title{Distributed Algorithms for Connectivity and MST in Large Graphs with Efficient Local Computation}
 \author{Eric Ajieren, \alert{Khalid Hourani}, William K. Moses Jr., Gopal Pandurangan}
