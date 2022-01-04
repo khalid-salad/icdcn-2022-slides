@@ -1,0 +1,95 @@
+\section{Introduction}
+\begin{frame}{The $k$-Machine Model}
+    \begin{itemize}
+        \item study distributed algorithms for large-scale graphs
+        \item focus on connectivity and MST
+        \item in $k$-machine model
+              \begin{itemize}
+                  \item $k \geq 2$ machines jointly perform computations on input graph
+                  \item input graph distributed uniformly at random to $k$ machines
+                        \begin{itemize}
+                            \item $n$ nodes, $m$ edges
+                            \item when a node is given to a machine, its \alert{adjacency list} is also
+                            \item commonly called \alert{vertex centric} model
+                        \end{itemize}
+                  \item assume $n \gg k$ (e.g. $k = \bigO{n^{\varepsilon}}$)
+              \end{itemize}
+        \item typically, \alert{only consider communication cost}
+              \begin{itemize}
+                  \item message complexity --- number of communication rounds
+              \end{itemize}
+        \item traditionally done because network communication is much slower
+              than local computation
+              \begin{itemize}
+                  \item less true as network speeds increase
+              \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Our Results}
+    \begin{itemize}
+        \item we posit a new complexity measure
+              \begin{itemize}
+                  \item \alert{local computation cost} --- $\lcc$
+                  \item measures the worst-case local computation cost among $k$ machines
+              \end{itemize}
+        \item refer to traditional communication complexity by $\mcc$
+        \item lower bounds
+              \begin{align*}
+                  \lcc & = \bigOm{\frac{m + n}{k} + \Delta + k} \\
+                  \mcc & = \bigOm{\frac{n}{k^2}}
+              \end{align*}
+        \item in practical implementations of $k$-machine model algorithms,
+              often see suboptimal speedup
+              \begin{itemize}
+                  \item e.g. PageRank with $T_c = \bigO{\sfrac{n}{k}}$ but whose wall-clock
+                        time is approximately $\sfrac{n}{k^{0.8}}$
+              \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \begin{itemize}
+        \item analyze several algorithms under the new complexity measure
+              \begin{tabular}{@{}lll@{}}\toprule
+                  Algorithm                  & Round complexity          & Local runtime                        \\\midrule
+                  Flooding                   & $\softO{\frac{n}{k} + D}$ & $\softO{\frac{m}{k} + \Delta + k}$   \\
+                  Filtering                  & $\softO{\frac{n}{k}}$     & $\softO{\frac{m}{k} + n}$            \\
+                  Improved Local Bor\r{u}vka & $\softO{\frac{n}{k}}$     & $\softO{\frac{m+n}{k} + \Delta + k}$ \\
+                  Randomized CC              & $\softO{\frac{n}{k^2}}$   & $\softO{\frac{m+n}{k} + \Delta + k}$
+              \end{tabular}
+        \item many distributed algorithms that are optimal are often only optimal under \alert{communication complexity}
+        \item as a byproduct of our analysis, we have two general results
+              \begin{itemize}
+                  \item the Node Distribution Lemma
+                  \item the Mapping Lemma
+              \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \begin{lemma}[Node Distribution Lemma]
+        Consider a graph $G$ of nodes $v_1, v_2, \hdots, v_n$ with associated
+        non-negative real-valued ``weights'' $w(v)$ for each node $v$. Given a
+        uniform, random distribution of the $n$ nodes to $k$ machines, as in the
+        $k$-machine model, then, with probability at least $1 - \sfrac{1}{n^a}$ for any
+        $a > 0$, the total weight of nodes at every machine is bounded above by
+        \[\bigO{T_{\text{avg}}+\log{n}\cdot w_{\text{max}}}\]
+        where $T_{\text{avg}}=\frac{1}{k}\sum_{i=1}^n w(v_i)$ and
+        $w_{\text{max}} = \text{max}\set{w(v_i)}$.
+    \end{lemma}
+\end{frame}
+
+\begin{frame}
+    \begin{lemma}[Mapping Lemma]\label{lem:more-acc-mapping-lemma}
+        Let an \(n\)-node, \(m\)-edge graph \(G\) be partitioned among the \(k\)
+        machines as \(N = \set{p_1, \ldots, p_k}\). Then with probability at
+        least \(1 - \sfrac{1}{n^\alpha}\), where \(\alpha > 1\) is an arbitrary
+        fixed constant, the following bounds hold:
+        \begin{enumerate}
+            \item The number of vertices mapped to any machine is \(\bigO{n/k}\).
+            \item The number of edges mapped to any machine is \(\mathcal{O}(m/k + \Delta \log n)\).
+            \item The number of edges mapped to any link of the network is \(\bigO{m/k^2 + n/k}\).
+        \end{enumerate}
+    \end{lemma}
+\end{frame}

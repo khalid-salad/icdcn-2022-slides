@@ -2,6 +2,22 @@
 \usetheme{Darmstadt}
 \usecolortheme{beetle}
 \usepackage{presentation}
+\usepackage{amsmath}
+\usepackage{mleftright}
+\mleftright
+\newcommand{\lcc}{T_{\ell}}
+\newcommand{\mcc}{T_c}
+\newcommand{\bigO}[1]{\mathcal{O}\left(#1\right)}
+\newcommand{\bigOm}[1]{\Omega\left(#1\right)}
+\newcommand{\softO}[1]{\tilde{\mathcal{O}}\left(#1\right)}
+\newcommand{\softOm}[1]{\tilde{\Omega}\left(#1\right)}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\card}[1]{\left\lvert#1\right\rvert}
+\usepackage{booktabs}
+\usepackage{xfrac}
+\renewcommand{\sfrac}[2]{#1 / #2}
+\UseCollection{xfrac}{plainmath}
+\usepackage{algpseudocodex}
 
 \title{Distributed Algorithms for Connectivity and MST in Large Graphs with Efficient Local Computation}
 \author{Eric Ajieren, Khalid Hourani, William K. Moses Jr., Gopal Pandurangan}
@@ -25,7 +41,9 @@
     \tableofcontents
 \end{frame}
 
-\include{introduction}
-\include{problem-solving}
-\include{thank-you}
+\include{tex/introduction}
+\include{tex/parallel-flooding}
+\include{tex/filtering}
+\include{tex/deterministic-boruvka}
+\include{tex/almost-optimal-randomized}
 \end{document}

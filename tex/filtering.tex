@@ -1,0 +1,61 @@
+\section{Filtering-Based MST}
+\begin{frame}{Preliminaries}
+    \begin{itemize}
+        \item uses three procedures:
+        \item Kruskal's algorithm --- outputs an MST in $\bigO{m\log{m}}$ rounds
+        \item maximal matching a clique of size $n$
+              \begin{itemize}
+                  \item done by simply sorting IDs and matching node $2i - 1$ to node $2i$
+              \end{itemize}
+        \item distributed routing in a clique
+              \begin{itemize}
+                  \item node $u$ wants to send $f$ messages to a different node $v$
+                  \item phase 1:
+                        \begin{itemize}
+                            \item divide messages into groups of $\sfrac{f}{(n-1)}$
+                            \item append destination id to messages
+                            \item send one group per edge
+                        \end{itemize}
+                  \item phase 2:
+                        \begin{itemize}
+                            \item each node forwards its message to the destination
+                        \end{itemize}
+              \end{itemize}
+    \end{itemize}
+\end{frame}
+\begin{frame}{The Algorithm}
+    \begin{itemize}
+        \item each machine $M$ maintains
+              \begin{itemize}
+                  \item a graph $G_M$
+                        \begin{itemize}
+                            \item initially comprised of subgraph induced by edges in $M$
+                        \end{itemize}
+                  \item ordered list $H_M$ comprised of IDs of all machines
+              \end{itemize}
+        \item each machine $M$ executes at most $2\log{k}$ phases of:
+              \begin{itemize}
+                  \item if $M$ received information about new edges in previous phase,
+                        it updates $G_M$ accordingly, then runs Kruskal's to remove cycles
+                  \item if $\card{H_M} = 1$, terminate. Use matching procedure on $H_M$ to
+                        match with machine $M'$. If the ID of $M$ is greater than that of $M'$,
+                        use routing procedure to send $G_M$ to $M'$
+                  \item For any machine $M''$ in $H_M$, if $M''$ matched with a machine with
+                        a lower ID than $M''$, remove $M''$ from $H_M$. If $M$ is such a machine,
+                        terminate
+              \end{itemize}
+        \item at the end of the algorithm, the machine with the lowest ID will have
+              the entire MST
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \begin{itemize}
+        \item Correctness is fairly straightforward
+        \begin{itemize}
+            \item if $e$ is a cut edge, then it will never be removed by Kruskal's
+            \item the matching algorithm guarantees that after $2\log{k}$ phases, the lowest
+            ID machine will contain $e$
+        \end{itemize}
+    \end{itemize}
+\end{frame}

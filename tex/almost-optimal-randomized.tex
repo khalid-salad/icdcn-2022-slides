@@ -1,0 +1,48 @@
+\section{An Almost-Optimal Randomized Algorithm}
+\begin{frame}
+    \begin{itemize}
+        \item we analyze the 2018 algorithm of Pandurangan, Robinson, and Scquizzato
+        \item optimal up to polylog factors in terms of round complexity
+        \item but $\softO{n^2}$ local computation complexity
+        \item the algorithm is similar to Bor\o{u}vka's algorithm, with
+              the output being a \alert{labeling} of the nodes, such that nodes in the same component have the same label
+        \item component also have a \alert{component proxy} that handles finding MOEs and merging for the component
+        \item initially, each node has label equal to its ID (forming its own component) and is its own component proxy
+        \item to load balance communication and computation, component proxies are chosen randomly among the machines
+        \item given a component $f$ and a machine $M$, the set of nodes belonging
+              to $f$ in $M$ are called the \alert{component part}
+        \item relies on \alert{linear graph sketches} to efficiently merge multiple components
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \begin{itemize}
+        \item sketches are found by forming a vector of length
+              $\binom{n}{2}$ for each node $v$ and and appropriate choice of an
+              $\bigO{\log^2{n}} \times \binom{n}{2}$ matrix. This requires $\softOm{n^2}$ local computation time.
+        \item can be improved to $\softO{\sfrac{(m+n)}{k} + \Delta + k}$ by using the
+              2011 sketches of Tardos, Saglam, and Jowhari
+        \item instead of storing vectors of length $\binom{n}{2}$, a leader machine broadcasts an \alert{odd hash function}
+    \end{itemize}
+\end{frame}
+\begin{frame}
+    \begin{itemize}
+        \item each component uses this hash function to find an MOE as follows
+              \begin{itemize}
+                  \item each node in a component part evaluates $\sum_{\text{incident edges } e} h(e)
+                            \bmod{2}$
+                  \item this sum is aggregated among the nodes in a component part by the
+                        corresponding machine
+                  \item the sums of each part of the component are aggregated to the
+                        corresponding component proxy machine.
+                  \item If the sum is 1, we conclude with some constant probability
+                        $\varepsilon$ that an outgoing edge exists out of the component
+                        \begin{itemize}
+                            \item By restricting the edges considered to be those within some range $[i, j]$, can (like binary search) determine an MOE with constant probability
+                            \item repeating this process $\bigOm{\log{n}}$ times yields an
+                                  MOE whp for a single component
+                            \item by union bound, we have MOE for all components whp
+                        \end{itemize}
+              \end{itemize}
+    \end{itemize}
+\end{frame}

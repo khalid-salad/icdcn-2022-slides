@@ -1,0 +1,77 @@
+\section{Parallel Flooding}
+\begin{frame}
+    \begin{itemize}
+        \item the algorithm can be described from the perspective of a node
+              \begin{itemize}
+                  \item each node chooses an ID uniformly at random in $[1, n^4]$
+                  \item each node floods its ID
+                  \item upon receiving a message (with an ID), if the new ID is
+                        greater than the current ID, the node updates its ID and
+                        floods
+              \end{itemize}
+        \item in order to simulate this in the $k$-Machine Model, each machine $M$
+              \begin{itemize}
+                  \item maintains list of nodes on the machine in descending-order of ID
+                  \item iterate through list and simulate each node individually
+                        \begin{itemize}
+                            \item when $u$ located on $M$ sends a message to $v$ on $M'$, $M$ sends the appropriate message to $M'$
+                        \end{itemize}
+                  \item after some $\bigO{\sfrac{n\log{n}}{k} + D}$ rounds,
+                        aggregate all IDs located on machine $M$ and send them to
+                        machine $M_1$
+              \end{itemize}
+        \item Finally, machine $M_1$ counts the number of distinct IDs (which is the number of connected components) and broadcasts it to all machines
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \begin{theorem}\label{thm:flooding-thm}
+        With high probability, the above algorithm correctly counts the number
+        of connected components with
+        \begin{align*}
+            \lcc & = \bigO{(m/k + \Delta\log n) \log n + k} \\
+            \mcc & = \bigO{n\log n/k + D}
+        \end{align*}
+    \end{theorem}
+    \begin{proof}
+        \begin{itemize}
+            \item with Chernoff Bounds, can show that a node $v$ will update max-ID
+                  $\bigO{\log{n}}$ times with probability $1 - \sfrac{1}{n^a}$
+            \item $v$ will receive $\bigO{\deg(v)\log{n}}$ higher IDs
+            \item when max-ID is updated, $v$ sends to $\deg(v)$ nodes, totaling $\bigO{\deg(v)\log{n}}$
+            \item maximum runtime is therefore $\bigO{\Delta\log{n}}$.
+        \end{itemize}
+    \end{proof}
+\end{frame}
+
+\begin{frame}
+    \begin{proof}
+        \begin{itemize}
+            \item apply node distribution lemma on the degree of nodes
+                  \begin{align*}
+                      \lcc & = \bigO{\frac{1}{k}\left(\sum_{i=1}^n (d(v_i) \log n)\right) + \log n \cdot \Delta \log n} \\
+                           & = \bigO{\left(\frac{m}{k} + \Delta \log n\right) \log n}
+                  \end{align*}
+            \item in the worst case, a machine sends/receives messages from all other machines, totaling
+                  \[\bigO{\left(\frac{m}{k} + \Delta \log n\right) \log n + k}\]
+        \end{itemize}
+    \end{proof}
+\end{frame}
+
+\begin{frame}
+    \begin{lemma}
+        The communication complexity of the algorithm is $\bigO{n\log n/k + D}$
+        with high probability.
+    \end{lemma}
+    \begin{proof}
+        \begin{itemize}
+            \item by conversion theorem (see~), total number of broadcasts is $\bigO{\sfrac{B\log{n}}{(kW)} + D}$ where $W$ is the bandwidth
+            \item taking $W = \bigO{\log{n}}$
+            \item by mapping lemma, $\bigO{\log{n}}$ broadcasts for a particular
+            node with probability $1 - \sfrac{1}{n^2}$
+            \item by union bound, $\bigO{\log{n}}$ broadcasts for all nodes with 
+            probability $1 - \sfrac{1}{n}$
+            \item thus, $\bigO{n\log{n}}$ broadcasts initiated with high probability
+        \end{itemize}
+    \end{proof}
+\end{frame}

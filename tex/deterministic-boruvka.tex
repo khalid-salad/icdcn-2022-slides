@@ -1,0 +1,68 @@
+\section{Determinstic Bor\o{u}vka-Style Algorithm}
+\begin{frame}
+    \begin{itemize}
+        \item we present two deterministic algorithms
+        \item however, a quick review of Bor\o{u}vka's
+        \item each machine stores a disjoint-set (union-find) $\mathcal{M}$
+        \item in each phase:
+              \begin{itemize}
+                  \item an MOE is found for each fragment
+                  \item fragments are merged along MOEs
+              \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Algorithm 1}
+    \begin{itemize}
+        \item each phase consists of two steps
+              \begin{itemize}
+                  \item for any node $v$ in $M$, $M$ iterates through the adjacency
+                        list of $v$ and performs \textproc{Find} until it finds an edge belonging
+                        to another fragment, after which it broadcasts this MOE
+                  \item $M$ merges fragments: if $(u, v)$ is an MOE, $M$ updates $\mathcal{M}$ with $\Call{Union}{u, v}$.
+              \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Algorithm 2 --- The Improved Algorithm}
+    \begin{itemize}
+        \item can improve $\lcc$
+        \item rather than broadcasting MOEs, simulate unicast version (as in GHS)
+        \item additionally, we filter to reduce the number of edges in each machine to $\bigO{n}$
+              \begin{itemize}
+                  \item machines create MSFs of their local subgraphs using Kruskal's
+                  \item ``discard'' edges that are not part of local MSF
+                  \item the remaining (at most $k(n-1)$ edges whp) are the only MST edges reamining
+              \end{itemize}
+        \item algorithm then continues on remaining subgraphs
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \begin{itemize}
+        \item for a fixed machine $M$ and fragment $f$
+        \item set $\texttt{LOE} = \infty$
+              \begin{itemize}
+                  \item iterate through edges in $f$ --- for edge $(u, v)$ with $u$ in $M$, send a message to the machine containing $v$ with IDs of $u$ and $v$ and fragment ID of $f$
+                  \item for each message $(u, v, f)$, if the fragment ID of $v$ is different than the received fragment ID, respond with original fragment ID and fragment ID of $f$
+                  \item update $\texttt{LOE} = \Call{min}{\texttt{LOE}, w}$ for each message received corresponding to $f$, where $w$ is the weight
+                        of the outgoing edge
+                \item broadcast the \texttt{LOE} and fragment ID
+              \end{itemize}
+        \item from the broadcast of the \texttt{LOE}s, each machine locally determines the global MOE for any fragment it contains
+        \item the machine then merges fragments
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Merging}
+    \begin{itemize}
+        \item Note that we cannot merge all fragments at once, as that takes time proportial to the length of the fragment chain
+        \item use a technique similar to \alert{controlled GHS}
+        \begin{itemize}
+            \item create rooted tree $F$ --- each node is a fragment and there is an edge between nodes if they share an MOE
+            \item construct maximal matching (using e.g. Cole-Vishkin)
+            \item merge all matches edges and any edge where \alert{exactly} one
+            endpoint is matched
+        \end{itemize}
+    \end{itemize}
+\end{frame}
