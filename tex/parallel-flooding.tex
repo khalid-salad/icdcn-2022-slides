@@ -9,6 +9,123 @@
                         greater than the current ID, the node updates its ID and
                         floods
               \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \onslide<1-10>{
+        \begin{tikzpicture}
+            \onslide<1>{
+                \node[draw,circle] (a) {$a$};
+                \node[draw,circle,below left=of a]  (b)  {$b$};
+                \node[draw,circle,below=of a] (e) {$e$};
+                \node[draw,circle,below right=of a] (f) {$f$};
+                \node[draw,circle,below=of b] (c) {$c$};
+                \node[draw,circle,below right=of c] (d) {$d$};
+                \node[draw,circle,right=of d] (h) {$h$};
+                \node[draw,circle,above=of h] (g) {$g$};
+            }
+
+            \onslide<2-3>{
+            \node[draw,label=above:{\tiny\textcolor{red}{1415}},circle] (a) {$a$};
+            \node[draw,label=above:{\tiny\textcolor{red}{3181}},circle,below left=of a]  (b)  {$b$};
+            \node[draw,label=left:{\tiny\textcolor{red}{1282}},circle,below=of a] (e) {$e$};
+            \node[draw,label=above:{\tiny\textcolor{red}{2855}},circle,below right=of a] (f) {$f$};
+            \node[draw,label=left:{\tiny\textcolor{red}{5}},circle,below=of b] (c) {$c$};
+            \node[draw,label=above:{\tiny\textcolor{red}{3167}},circle,below right=of c] (d) {$d$};
+            \node[draw,label=right:{\tiny\textcolor{red}{3916}},circle,right=of d] (h) {$h$};
+            \node[draw,label=right:{\tiny\textcolor{red}{2937}},circle,above=of h] (g) {$g$};
+            }
+
+            \draw (a) -- (b) -- (c) -- (d) -- (h) -- (g) -- (f) -- (a);
+            \draw (a) -- (e) -- (h);
+
+            \onslide<3>{
+                \DoubleLine{a}{f}{->,red,dashed}{}{<-,red,dashed}{}
+                \DoubleLine{a}{e}{->,red,dashed}{}{<-,red,dashed}{}
+                \DoubleLine{a}{b}{->,red,dashed}{}{<-,red,dashed}{}
+                \DoubleLine{b}{c}{->,red,dashed}{}{<-,red,dashed}{}
+                \DoubleLine{c}{d}{->,red,dashed}{}{<-,red,dashed}{}
+                \DoubleLine{d}{h}{->,red,dashed}{}{<-,red,dashed}{}
+                \DoubleLine{h}{g}{->,red,dashed}{}{<-,red,dashed}{}
+                \DoubleLine{h}{e}{->,red,dashed}{}{<-,red,dashed}{}
+                \DoubleLine{g}{f}{->,red,dashed}{}{<-,red,dashed}{}
+            }
+
+            \onslide<4-5>{
+            \node[draw,label=above:{\tiny\textcolor{red}{3181}},circle] (a) {$a$};
+            \node[draw,label=above:{\tiny3181},circle,below left=of a]  (b)  {$b$};
+            \node[draw,label=left:{\tiny\textcolor{red}{3916}},circle,below=of a] (e) {$e$};
+            \node[draw,label=above:{\tiny\textcolor{red}{2937}},circle,below right=of a] (f) {$f$};
+            \node[draw,label=left:{\tiny\textcolor{red}{3181}},circle,below=of b] (c) {$c$};
+            \node[draw,label=above:{\tiny\textcolor{red}{3916}},circle,below right=of c] (d) {$d$};
+            \node[draw,label=right:{\tiny3916},circle,right=of d] (h) {$h$};
+            \node[draw,label=right:{\tiny\textcolor{red}{3916}},circle,above=of h] (g) {$g$};
+            }
+
+            \onslide<5>{
+                \DoubleLine{a}{f}{->,red,dashed}{}{<-,red,dashed}{}
+                \DoubleLine{a}{e}{->,red,dashed}{}{<-,red,dashed}{}
+                \DoubleLine{c}{d}{->,red,dashed}{}{<-,red,dashed}{}
+                \DoubleLine{g}{f}{->,red,dashed}{}{draw=none}{}
+                \DoubleLine{h}{e}{draw=none}{}{<-,red,dashed}{}
+            }
+
+            \onslide<6-7>{
+            \node[draw,label=above:{\tiny\textcolor{red}{3916}},circle] (a) {$a$};
+            \node[draw,label=above:{\tiny3181},circle,below left=of a]  (b)  {$b$};
+            \node[draw,label=left:{\tiny3916},circle,below=of a] (e) {$e$};
+            \node[draw,label=above:{\tiny\textcolor{red}{3916}},circle,below right=of a] (f) {$f$};
+            \node[draw,label=left:{\tiny\textcolor{red}{3916}},circle,below=of b] (c) {$c$};
+            \node[draw,label=above:{\tiny3916},circle,below right=of c] (d) {$d$};
+            \node[draw,label=right:{\tiny3916},circle,right=of d] (h) {$h$};
+            \node[draw,label=right:{\tiny3916},circle,above=of h] (g) {$g$};
+            }
+
+            \onslide<7>{
+                \DoubleLine{a}{f}{->,red,dashed}{}{<-,red,dashed}{}
+                \DoubleLine{a}{b}{->,red,dashed}{}{draw=none}{}
+                \DoubleLine{c}{b}{->,red,dashed}{}{draw=none}{}
+            }
+
+            \onslide<8> {
+            \node[draw,label=above:{\tiny3916},circle] (a) {$a$};
+            \node[draw,label=above:{\tiny\textcolor{red}{3916}},circle,below left=of a]  (b)  {$b$};
+            \node[draw,label=left: {\tiny3916},circle,below=of a] (e) {$e$};
+            \node[draw,label=above:{\tiny3916},circle,below right=of a] (f) {$f$};
+            \node[draw,label=left: {\tiny3916},circle,below=of b] (c) {$c$};
+            \node[draw,label=above:{\tiny3916},circle,below right=of c] (d) {$d$};
+            \node[draw,label=right:{\tiny3916},circle,right=of d] (h) {$h$};
+            \node[draw,label=right:{\tiny3916},circle,above=of h] (g) {$g$};
+            }
+            \onslide<9> {
+            \node[draw,label=above:{\tiny3916},circle] (a) {$a$};
+            \node[draw,label=above:{\tiny\textcolor{red}{3916}},circle,below left=of a]  (b)  {$b$};
+            \node[draw,label=left: {\tiny3916},circle,below=of a] (e) {$e$};
+            \node[draw,label=above:{\tiny3916},circle,below right=of a] (f) {$f$};
+            \node[draw,label=left: {\tiny3916},circle,below=of b] (c) {$c$};
+            \node[draw,label=above:{\tiny3916},circle,below right=of c] (d) {$d$};
+            \node[draw,label=right:{\tiny3916},circle,right=of d] (h) {$h$};
+            \node[draw,label=right:{\tiny3916},circle,above=of h] (g) {$g$};
+            }
+
+            \onslide<10> {
+            \node[draw,label=above:{\tiny3916},circle] (a) {$a$};
+            \node[draw,label=above:{\tiny3916},circle,below left=of a]  (b)  {$b$};
+            \node[draw,label=left: {\tiny3916},circle,below=of a] (e) {$e$};
+            \node[draw,label=above:{\tiny3916},circle,below right=of a] (f) {$f$};
+            \node[draw,label=left: {\tiny3916},circle,below=of b] (c) {$c$};
+            \node[draw,label=above:{\tiny3916},circle,below right=of c] (d) {$d$};
+            \node[draw,label=right:{\tiny3916},circle,right=of d] (h) {$h$};
+            \node[draw,label=right:{\tiny3916},circle,above=of h] (g) {$g$};
+            }
+        \end{tikzpicture}
+    }
+\end{frame}
+
+\begin{frame}
+    \begin{itemize}
         \item in order to simulate this in the $k$-Machine Model, each machine $M$
               \begin{itemize}
                   \item maintains list of nodes on the machine in descending-order of ID
@@ -68,9 +185,9 @@
             \item by conversion theorem (see~), total number of broadcasts is $\bigO{\sfrac{B\log{n}}{(kW)} + D}$ where $W$ is the bandwidth
             \item taking $W = \bigO{\log{n}}$
             \item by mapping lemma, $\bigO{\log{n}}$ broadcasts for a particular
-            node with probability $1 - \sfrac{1}{n^2}$
-            \item by union bound, $\bigO{\log{n}}$ broadcasts for all nodes with 
-            probability $1 - \sfrac{1}{n}$
+                  node with probability $1 - \sfrac{1}{n^2}$
+            \item by union bound, $\bigO{\log{n}}$ broadcasts for all nodes with
+                  probability $1 - \sfrac{1}{n}$
             \item thus, $\bigO{n\log{n}}$ broadcasts initiated with high probability
         \end{itemize}
     \end{proof}

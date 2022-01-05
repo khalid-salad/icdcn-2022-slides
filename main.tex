@@ -21,6 +21,7 @@
 \usepackage{tikz, pgfplots}
 \pgfplotsset{compat=newest}
 \usetikzlibrary{shapes, shapes.misc, decorations, fit, backgrounds, positioning, patterns, shadows, calc, arrows, arrows.meta, trees}
+
 \usetikzlibrary{external}
 \tikzexternalize[prefix=tikzimages/]
 \tikzset{>={Latex[width=2mm,length=2mm]}}
@@ -40,6 +41,15 @@
     minimum size=0.1cm,
     fill
   }
+}
+
+\pgfdeclaredecoration{simple line}{initial}{
+  \state{initial}[width=\pgfdecoratedpathlength-1sp]{\pgfmoveto{\pgfpointorigin}}
+  \state{final}{\pgflineto{\pgfpointorigin}}
+}
+\tikzset{
+   shift left/.style={decorate,decoration={simple line,raise=#1}},
+   shift right/.style={decorate,decoration={simple line,raise=-1*#1}},
 }
 
 \title{Distributed Algorithms for Connectivity and MST in Large Graphs with Efficient Local Computation}
