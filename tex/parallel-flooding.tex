@@ -1,5 +1,5 @@
 \section{Parallel Flooding}
-\begin{frame}
+\begin{frame}{Parallel Flooding}
     \begin{itemize}
         \item the algorithm can be described from the perspective of a node
               \begin{itemize}
@@ -13,7 +13,7 @@
 \end{frame}
 
 
-\begin{frame}
+\begin{frame}{Parallel Flooding}
     \onslide<1-10>{
         \begin{tikzpicture}
             \onslide<1>{
@@ -124,12 +124,12 @@
     }
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Simulating in $k$-Machine Model}
     \begin{itemize}
         \item in order to simulate this in the $k$-Machine Model, each machine $M$
               \begin{itemize}
                   \item maintains list of nodes on the machine in descending-order of ID
-                  \item iterate through list and simulate each node individually
+                  \item iterates through list and simulates each node individually
                         \begin{itemize}
                             \item when $u$ located on $M$ sends a message to $v$ on $M'$, $M$ sends the appropriate message to $M'$
                         \end{itemize}
@@ -182,7 +182,7 @@
     \end{lemma}
     \begin{proof}
         \begin{itemize}
-            \item by conversion theorem (see~), total number of broadcasts is $\bigO{\sfrac{B\log{n}}{(kW)} + D}$ where $W$ is the bandwidth
+            \item total number of broadcasts is $\bigO{\sfrac{B\log{n}}{(kW)} + D}$ where $W$ is the bandwidth
             \item taking $W = \bigO{\log{n}}$
             \item by mapping lemma, $\bigO{\log{n}}$ broadcasts for a particular
                   node with probability $1 - \sfrac{1}{n^2}$

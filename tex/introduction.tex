@@ -9,7 +9,7 @@
                   \item input graph distributed uniformly at random to $k$ machines
                         \begin{itemize}
                             \item $n$ nodes, $m$ edges
-                            \item when a node is given to a machine, its \alert{adjacency list} is also
+                            \item each \alert{node} and its \alert{adjacency list} is given to a random machine
                             \item commonly called \alert{vertex centric} model
                         \end{itemize}
                   \item assume $n \gg k$ (e.g. $k = \bigO{n^{\varepsilon}}$)
@@ -18,66 +18,66 @@
 \end{frame}
 
 
-\begin{frame}
+\begin{frame}{$k$-Machine Model}
     \onslide<1-4>{
-    \begin{tikzpicture}[every node/.style={draw}]
-        \onslide<1-2>{
-        \node[circle,label=above:{Input Graph}] (a) {$a$};
-        \node[circle,below left=of a]  (b)  {$b$};
-        \node[circle,below=of a] (e) {$e$};
-        \node[circle,below right=of a] (f) {$f$};
-        \node[circle,below=of b] (c) {$c$};
-        \node[circle,below right=of c] (d) {$d$};
-        \node[circle,right=of d] (h) {$h$};
-        \node[circle,above=of h] (g) {$g$};
+        \begin{tikzpicture}[every node/.style={draw}]
+            \onslide<1-2>{
+            \node[circle,label=above:{Input Graph}] (a) {$a$};
+            \node[circle,below left=of a]  (b)  {$b$};
+            \node[circle,below=of a] (e) {$e$};
+            \node[circle,below right=of a] (f) {$f$};
+            \node[circle,below=of b] (c) {$c$};
+            \node[circle,below right=of c] (d) {$d$};
+            \node[circle,right=of d] (h) {$h$};
+            \node[circle,above=of h] (g) {$g$};
 
-        \draw (a) -- (b) -- (c) -- (d) -- (h) -- (g) -- (f) -- (a);
-        \draw (a) -- (e) -- (h);
-        }
+            \draw (a) -- (b) -- (c) -- (d) -- (h) -- (g) -- (f) -- (a);
+            \draw (a) -- (e) -- (h);
+            }
 
-        \node[rectangle, minimum width=2.5cm, minimum height=2cm,label=above:{$M_1$},purple,very thick, above right=of g] (m1) {};
-        \node[rectangle, minimum width=2.5cm, minimum height=2cm,label=above:{$M_2$},purple,very thick,right=of m1] (m2) {};
-        \node[rectangle, minimum width=2.5cm, minimum height=2cm,label=below:{$M_3$},purple,very thick,below=of m1] (m3) {};
-        \node[rectangle, minimum width=2.5cm, minimum height=2cm,label=below:{$M_4$},purple,very thick,right=of m3] (m4) {};
+            \node[rectangle, minimum width=2.5cm, minimum height=2cm,label=above:{$M_1$},purple,very thick, above right=of g] (m1) {};
+            \node[rectangle, minimum width=2.5cm, minimum height=2cm,label=above:{$M_2$},purple,very thick,right=of m1] (m2) {};
+            \node[rectangle, minimum width=2.5cm, minimum height=2cm,label=below:{$M_3$},purple,very thick,below=of m1] (m3) {};
+            \node[rectangle, minimum width=2.5cm, minimum height=2cm,label=below:{$M_4$},purple,very thick,right=of m3] (m4) {};
 
-        \draw[<->, very thick, purple] (m1) -- (m2);
-        \draw[<->, very thick, purple] (m1) -- (m3);
-        \draw[<->, very thick, purple] (m1.south east) -- (m4.north west);
-        \draw[<->, very thick, purple] (m2) -- (m4);
-        \draw[<->, very thick, purple] (m2.south west) -- (m3.north east);
-        \draw[<->, very thick, purple] (m3) -- (m4);
+            \draw[<->, very thick, purple] (m1) -- (m2);
+            \draw[<->, very thick, purple] (m1) -- (m3);
+            \draw[<->, very thick, purple] (m1.south east) -- (m4.north west);
+            \draw[<->, very thick, purple] (m2) -- (m4);
+            \draw[<->, very thick, purple] (m2.south west) -- (m3.north east);
+            \draw[<->, very thick, purple] (m3) -- (m4);
 
-        \onslide<2>{
-            \draw[->, dashed] (a) to[bend left] (m1);
-            \draw[->, dashed] (e) to[bend left] (m1);
-            \draw[->, dashed] (c) to[bend right] (m2);
-            \draw[->, dashed] (h) to[bend left] (m2);
-            \draw[->, dashed] (b) to[bend right] (m3);
-            \draw[->, dashed] (g) to[bend right] (m3);
-            \draw[->, dashed] (d) to[bend right] (m4);
-            \draw[->, dashed] (f) to[bend right] (m4);
-        }
+            \onslide<2>{
+                \draw[->, dashed] (a) to[bend left] (m1);
+                \draw[->, dashed] (e) to[bend left] (m1);
+                \draw[->, dashed] (c) to[bend right] (m2);
+                \draw[->, dashed] (h) to[bend left] (m2);
+                \draw[->, dashed] (b) to[bend right] (m3);
+                \draw[->, dashed] (g) to[bend right] (m3);
+                \draw[->, dashed] (d) to[bend right] (m4);
+                \draw[->, dashed] (f) to[bend right] (m4);
+            }
 
-        \onslide<3,4>{
-        \node[circle] (a1) at ([xshift=-0.5cm,yshift=0.5cm]m1.center) {$a$};
-        \node[circle] (e1) at ([xshift=0.5cm,yshift=-0.5cm]m1.center) {$e$};
-        \node[circle] (c1) at ([xshift=-0.5cm,yshift=0.5cm]m2.center) {$c$};
-        \node[circle] (h1) at ([xshift=0.5cm,yshift=-0.5cm]m2.center) {$h$};
-        \node[circle] (b1) at ([xshift=-0.5cm,yshift=0.5cm]m3.center) {$b$};
-        \node[circle] (g1) at ([xshift=0.5cm,yshift=-0.5cm]m3.center) {$g$};
-        \node[circle] (d1) at ([xshift=-0.5cm,yshift=0.5cm]m4.center) {$d$};
-        \node[circle] (f1) at ([xshift=0.5cm,yshift=-0.5cm]m4.center) {$f$};
-        }
+            \onslide<3,4>{
+                \node[circle] (a1) at ([xshift=-0.5cm,yshift=0.5cm]m1.center) {$a$};
+                \node[circle] (e1) at ([xshift=0.5cm,yshift=-0.5cm]m1.center) {$e$};
+                \node[circle] (c1) at ([xshift=-0.5cm,yshift=0.5cm]m2.center) {$c$};
+                \node[circle] (h1) at ([xshift=0.5cm,yshift=-0.5cm]m2.center) {$h$};
+                \node[circle] (b1) at ([xshift=-0.5cm,yshift=0.5cm]m3.center) {$b$};
+                \node[circle] (g1) at ([xshift=0.5cm,yshift=-0.5cm]m3.center) {$g$};
+                \node[circle] (d1) at ([xshift=-0.5cm,yshift=0.5cm]m4.center) {$d$};
+                \node[circle] (f1) at ([xshift=0.5cm,yshift=-0.5cm]m4.center) {$f$};
+            }
 
-        \onslide<4>{
-        \draw[dashed, red] (a1) -- (b1) -- (c1) -- (d1) -- (h1) -- (g1) -- (f1) -- (a1);
-        \draw[dashed, red] (a1) -- (e1) -- (h1);
-        }
-    \end{tikzpicture}
+            \onslide<4>{
+                \draw[dashed, red] (a1) -- (b1) -- (c1) -- (d1) -- (h1) -- (g1) -- (f1) -- (a1);
+                \draw[dashed, red] (a1) -- (e1) -- (h1);
+            }
+        \end{tikzpicture}
     }
 \end{frame}
 
-\begin{frame}
+\begin{frame}{$k$-Machine Model}
     \begin{itemize}
         \item typically, \alert{only consider communication cost}
               \begin{itemize}
@@ -87,12 +87,19 @@
               than local computation
               \begin{itemize}
                   \item less true as network speeds increase
+                  \item for larger inputs, local computation becomes more significant
+              \end{itemize}
+        \item in practical implementations of $k$-machine model algorithms,
+              often see suboptimal speedup
+              \begin{itemize}
+                  \item e.g. PageRank with message complexity $\bigO{\sfrac{n}{k}}$ but whose wall-clock
+                        time is approximately $\sfrac{n}{k^{0.8}}$
               \end{itemize}
     \end{itemize}
 \end{frame}
 
 
-\begin{frame}{Our Results}
+\begin{frame}{Augmenting the $k$-Machine Model with Local Computation}
     \begin{itemize}
         \item we posit a new complexity measure
               \begin{itemize}
@@ -100,32 +107,32 @@
                   \item measures the worst-case local computation cost among $k$ machines
               \end{itemize}
         \item we refer to traditional communication complexity by $\mcc$
-        \item lower bounds
+        \item we analyze Connectivity and MST algorithms using this new complexity measure
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Summary of Results}
+    \begin{itemize}
+        \item we analyze several MST/CC algorithms under the new complexity measure
+        \item lower bounds for MST/CC
               \begin{align*}
                   \lcc & = \bigOm{\frac{m + n}{k} + \Delta + k} \\
                   \mcc & = \bigOm{\frac{n}{k^2}}
               \end{align*}
-        \item in practical implementations of $k$-machine model algorithms,
-              often see suboptimal speedup
-              \begin{itemize}
-                  \item e.g. PageRank with $T_c = \bigO{\sfrac{n}{k}}$ but whose wall-clock
-                        time is approximately $\sfrac{n}{k^{0.8}}$
-              \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}
-    \begin{itemize}
-        \item analyze several algorithms under the new complexity measure
+        \item
               \begin{tabular}{@{}lll@{}}\toprule
                   Algorithm                  & Round complexity          & Local runtime                        \\\midrule
                   Flooding                   & $\softO{\frac{n}{k} + D}$ & $\softO{\frac{m}{k} + \Delta + k}$   \\
                   Filtering                  & $\softO{\frac{n}{k}}$     & $\softO{\frac{m}{k} + n}$            \\
-                  Improved Local Bor\r{u}vka & $\softO{\frac{n}{k}}$     & $\softO{\frac{m+n}{k} + \Delta + k}$ \\
+                  Bor\r{u}vka-Style & $\softO{\frac{n}{k}}$     & $\softO{\frac{m+n}{k} + \Delta + k}$ \\
                   Randomized CC              & $\softO{\frac{n}{k^2}}$   & $\softO{\frac{m+n}{k} + \Delta + k}$
               \end{tabular}
-        \item many distributed algorithms that are optimal are often only optimal under \alert{communication complexity}
-        \item as a byproduct of our analysis, we have two general results
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Some Useful Lemmas}
+    \begin{itemize}
+        \item as a byproduct of our analysis, we have two useful lemmas for analysis of $k$-Machine Model algorithms
               \begin{itemize}
                   \item the Node Distribution Lemma
                   \item the Mapping Lemma
@@ -133,7 +140,7 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Node Distribution Lemma}
     \begin{lemma}[Node Distribution Lemma]
         Consider a graph $G$ of nodes $v_1, v_2, \hdots, v_n$ with associated
         non-negative real-valued ``weights'' $w(v)$ for each node $v$. Given a
@@ -146,7 +153,7 @@
     \end{lemma}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Mapping Lemma}
     \begin{lemma}[Mapping Lemma]\label{lem:more-acc-mapping-lemma}
         Let an \(n\)-node, \(m\)-edge graph \(G\) be partitioned among the \(k\)
         machines as \(N = \set{p_1, \ldots, p_k}\). Then with probability at

@@ -1,0 +1,29 @@
+\section{Conclusion}
+
+\begin{frame}{Conclusion}
+    \begin{itemize}
+        \item Augmented the $k$-machine model with a metric to measure local computation 
+        \begin{itemize}
+            \item Many ``optimal'' algorithms are only optimal with respect to $\mcc$
+        \end{itemize}
+        \item Analyzed well-known MIS/CC algorithms with respect to $\lcc$ and $\mcc$ 
+    \end{itemize}
+    \begin{tabular}{@{}lll@{}}\toprule
+        Algorithm                  & Round complexity          & Local runtime                        \\\midrule
+        Flooding                   & $\softO{\frac{n}{k} + D}$ & $\softO{\frac{m}{k} + \Delta + k}$   \\
+        Filtering                  & $\softO{\frac{n}{k}}$     & $\softO{\frac{m}{k} + n}$            \\
+        Bor\r{u}vka-Style & $\softO{\frac{n}{k}}$     & $\softO{\frac{m+n}{k} + \Delta + k}$ \\
+        Randomized CC              & $\softO{\frac{n}{k^2}}$   & $\softO{\frac{m+n}{k} + \Delta + k}$
+    \end{tabular}
+\end{frame}
+
+\begin{frame}{Open Problems}
+    \begin{itemize}
+        \item Analyze other graph problems in this model using 
+        \item Implementing algorithms and comparing wall-clock time with $\lcc$ and $\mcc$
+        \begin{itemize}
+            \item e.g. are there constants $\alpha$ and $\beta$ (for a given set of hardware)
+            such that wall-clock time is $\alpha\lcc + \beta\mcc$?
+        \end{itemize}
+    \end{itemize}
+\end{frame}
