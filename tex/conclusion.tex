@@ -8,6 +8,7 @@
         \end{itemize}
         \item Analyzed well-known MIS/CC algorithms with respect to $\lcc$ and $\mcc$ 
     \end{itemize}
+    \pause
     \begin{tabular}{@{}lll@{}}\toprule
         Algorithm                  & Round complexity          & Local runtime                        \\\midrule
         Flooding                   & $\softO{\frac{n}{k} + D}$ & $\softO{\frac{m}{k} + \Delta + k}$   \\
@@ -19,8 +20,8 @@
 
 \begin{frame}{Open Problems}
     \begin{itemize}
-        \item Analyze other graph problems in this model using 
-        \item Implementing algorithms and comparing wall-clock time with $\lcc$ and $\mcc$
+        \item Analyze other graph problems in this model
+        \item Implement algorithms and compare wall-clock time with $\lcc$ and $\mcc$
         \begin{itemize}
             \item e.g. are there constants $\alpha$ and $\beta$ (for a given set of hardware)
             such that wall-clock time is $\alpha\lcc + \beta\mcc$?

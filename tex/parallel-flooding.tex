@@ -182,7 +182,8 @@
     \end{lemma}
     \begin{proof}
         \begin{itemize}
-            \item total number of broadcasts is $\bigO{\sfrac{B\log{n}}{(kW)} + D}$ where $W$ is the bandwidth
+            \item total number of rounds is $\bigO{\sfrac{B\log{n}}{(kW)} + D}$ where $W$ is the bandwidth, $B$ is the number of broadcasts, and $D$ is the
+            diameter
             \item taking $W = \bigO{\log{n}}$
             \item by mapping lemma, $\bigO{\log{n}}$ broadcasts for a particular
                   node with probability $1 - \sfrac{1}{n^2}$
